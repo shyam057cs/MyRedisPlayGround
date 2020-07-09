@@ -66,9 +66,10 @@ public class BurstyRateLimiter extends RateLimiter {
 
 		//If yes, add message to the sorted set and return true
 		if (card < actions) {
-			jedis.zadd(key, (currentTime / 1000), cell);
+			jedis.zadd(key, (currentTime / 1000.0), cell);
 			System.out.println("Current members in set:");
 			System.out.println(String.join(",", jedis.zrange(key, 0, -1)));
+			System.out.println(jedis.zrangeWithScores(key, 0, -1));
 			return true;
 		}
 

@@ -38,7 +38,7 @@ public class SimpleCellRateLimiter extends RateLimiter implements Runnable {
 	// data structure. A separate thread checks whether popping the cell
 	// is within the acceptance rate.
 	public boolean arrival(String cell) {
-		System.out.println("In: " + (System.currentTimeMillis() / 1000) + " - " + cell);
+		System.out.println(key + ":In: " + (System.currentTimeMillis() / 1000) + " - " + cell);
 		jedis.lpush(key, cell);
 		return true;
 	}
@@ -55,10 +55,11 @@ public class SimpleCellRateLimiter extends RateLimiter implements Runnable {
 				while (!success) {
 					success = uniformRateLimiter.arrival(cell);
 					if (success) {
-						
+
 						// Take action here.....						
-						
-						System.out.println("Out: "+(System.currentTimeMillis()/1000)+" "+cell);
+
+						System.out.println(
+								key + "-Cleanup thread: Out: " + (System.currentTimeMillis() / 1000) + " " + cell);
 					}
 				}
 			}

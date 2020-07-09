@@ -16,12 +16,19 @@ public class RateLimiterFactory {
 		RateLimiter rateLimiter = null;
 
 		String type = props.getProperty("type");
-		if (type.equals(Constants.DISTRIBUTION_TYPE_UNIFORM)) {
-			rateLimiter = new UniformRateLimiter(props);
-		} else if (type.equals(Constants.DISTRIBUTION_TYPE_BURSTY)) {
-			rateLimiter = new BurstyRateLimiter(props);
-		} else if (type.equals(Constants.DISTRIBUTION_TYPE_GENERIC_CELL)) {
-			rateLimiter = new SimpleCellRateLimiter(props);
+		switch (type) {
+			case Constants.DISTRIBUTION_TYPE_UNIFORM:
+				rateLimiter = new UniformRateLimiter(props);
+				break;
+			case Constants.DISTRIBUTION_TYPE_BURSTY:
+				rateLimiter = new BurstyRateLimiter(props);
+				break;
+			case Constants.DISTRIBUTION_TYPE_GENERIC_CELL:
+				rateLimiter = new SimpleCellRateLimiter(props);
+				break;
+			case Constants.DISTRIBUTION_TYPE_SLIDING_WINDOW:
+				rateLimiter = new SlidingWindowRateLimiter(props);
+				break;
 		}
 
 		return rateLimiter;

@@ -12,6 +12,7 @@ public class RateLimiterMain {
 		uniformRateLimiterTest();
 		burstyRateLimiterTest();
 		genericCellRateLimiterTest();
+		slidingWindowRateLimiterTest();
 	}
 	
 	private static void genericCellRateLimiterTest() throws Exception {
@@ -83,6 +84,68 @@ public class RateLimiterMain {
 
 		boolean d = rateLimiter.arrival("test 4");
 		System.out.println("Result 4: " + d);
+
+	}
+
+	private static void slidingWindowRateLimiterTest() throws Exception {
+		Properties props = new Properties();
+
+		props.setProperty("type", Constants.DISTRIBUTION_TYPE_SLIDING_WINDOW);
+		props.setProperty("window", "60");
+		props.setProperty("actions", "3");
+
+		RateLimiter rateLimiter = RateLimiterFactory.getRateLimiter(props);
+
+		boolean a = rateLimiter.arrival("test 1");
+		System.out.println("Result 1: " + a);
+
+		System.out.println("Waiting 10 seconds");
+		Thread.sleep(10000);
+
+		boolean b = rateLimiter.arrival("test 2");
+		System.out.println("Result 2: " + b);
+
+		System.out.println("Waiting 10 seconds");
+		Thread.sleep(10000);
+
+		boolean c = rateLimiter.arrival("test 3");
+		System.out.println("Result 3: " + c);
+
+		System.out.println("Waiting 10 seconds");
+		Thread.sleep(10000);
+
+		boolean d = rateLimiter.arrival("test 4");
+		System.out.println("Result 4: " + d);
+
+		System.out.println("Waiting 10 seconds");
+		Thread.sleep(10000);
+
+		boolean e = rateLimiter.arrival("test 5");
+		System.out.println("Result 5: " + e);
+
+		System.out.println("Waiting 10 seconds");
+		Thread.sleep(10000);
+
+		boolean f = rateLimiter.arrival("test 6");
+		System.out.println("Result 6: " + f);
+
+		System.out.println("Waiting 10 seconds");
+		Thread.sleep(10000);
+
+		boolean g = rateLimiter.arrival("test 7");
+		System.out.println("Result 7: " + g);
+
+		System.out.println("Waiting 10 seconds");
+		Thread.sleep(10000);
+
+		boolean h = rateLimiter.arrival("test 8");
+		System.out.println("Result 8: " + h);
+
+		System.out.println("Waiting 10 seconds");
+		Thread.sleep(10000);
+
+		boolean i = rateLimiter.arrival("test 9");
+		System.out.println("Result 9: " + i);
 
 	}
 }
