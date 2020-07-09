@@ -10,23 +10,20 @@ import java.util.Properties;
  */
 public class RateLimiterFactory {
 
-	final static String DISTRIBUTION_TYPE_UNIFORM = "uniform";
-	final static String DISTRIBUTION_TYPE_BURSTY = "bursty";
-	final static String DISTRIBUTION_TYPE_GENERIC_CELL = "genericcell";
 		
 	public static RateLimiter getRateLimiter(Properties props) throws Exception {
-		
+
 		RateLimiter rateLimiter = null;
-		
+
 		String type = props.getProperty("type");
-		if(type.equals(DISTRIBUTION_TYPE_UNIFORM)){
+		if (type.equals(Constants.DISTRIBUTION_TYPE_UNIFORM)) {
 			rateLimiter = new UniformRateLimiter(props);
-		}else if(type.equals(DISTRIBUTION_TYPE_BURSTY)){
+		} else if (type.equals(Constants.DISTRIBUTION_TYPE_BURSTY)) {
 			rateLimiter = new BurstyRateLimiter(props);
-		}else if(type.equals(DISTRIBUTION_TYPE_GENERIC_CELL)){
+		} else if (type.equals(Constants.DISTRIBUTION_TYPE_GENERIC_CELL)) {
 			rateLimiter = new SimpleCellRateLimiter(props);
 		}
-		
+
 		return rateLimiter;
 	}
 }

@@ -16,13 +16,13 @@ public class RateLimiterMain {
 	
 	private static void genericCellRateLimiterTest() throws Exception {
 		Properties props = new Properties();
-		
-		props.setProperty("type", "genericcell");
+
+		props.setProperty("type", Constants.DISTRIBUTION_TYPE_GENERIC_CELL);
 		props.setProperty("window", "3600");
-		props.setProperty("actions", "3600");
-		
+		props.setProperty("actions", "1800");
+
 		RateLimiter rateLimiter = RateLimiterFactory.getRateLimiter(props);
-		
+
 		rateLimiter.arrival("test 1");
 		rateLimiter.arrival("test 2");
 		rateLimiter.arrival("test 3");
@@ -38,51 +38,51 @@ public class RateLimiterMain {
 	
 	private static void uniformRateLimiterTest() throws Exception {
 		Properties props = new Properties();
-		
-		props.setProperty("type", "uniform");
+
+		props.setProperty("type", Constants.DISTRIBUTION_TYPE_UNIFORM);
 		props.setProperty("window", "5");
 		props.setProperty("actions", "2");
-				
+
 		RateLimiter rateLimiter = RateLimiterFactory.getRateLimiter(props);
-		
+
 		boolean a = rateLimiter.arrival("test 1");
-		System.out.println("Result 1: "+a);
-		
+		System.out.println("Result 1: " + a);
+
 		boolean b = rateLimiter.arrival("test 2");
-		System.out.println("Result 2: "+b);
-			
+		System.out.println("Result 2: " + b);
+
 		boolean c = rateLimiter.arrival("test 3");
-		System.out.println("Result 3: "+c);
+		System.out.println("Result 3: " + c);
 
 		Thread.sleep(5000);
 
 		boolean d = rateLimiter.arrival("test 4");
-		System.out.println("Result 4: "+d);
-		
+		System.out.println("Result 4: " + d);
+
 	}	
 	
 	private static void burstyRateLimiterTest() throws Exception {
 		Properties props = new Properties();
-		
-		props.setProperty("type", "allow_burst_traffic");
+
+		props.setProperty("type", Constants.DISTRIBUTION_TYPE_BURSTY);
 		props.setProperty("window", "5");
 		props.setProperty("actions", "2");
-				
+
 		RateLimiter rateLimiter = RateLimiterFactory.getRateLimiter(props);
-		
+
 		boolean a = rateLimiter.arrival("test 1");
-		System.out.println("Result 1: "+a);
-		
+		System.out.println("Result 1: " + a);
+
 		boolean b = rateLimiter.arrival("test 2");
-		System.out.println("Result 2: "+b);
-			
+		System.out.println("Result 2: " + b);
+
 		boolean c = rateLimiter.arrival("test 3");
-		System.out.println("Result 3: "+c);
+		System.out.println("Result 3: " + c);
 
 		Thread.sleep(5000);
 
 		boolean d = rateLimiter.arrival("test 4");
-		System.out.println("Result 4: "+d);
-		
+		System.out.println("Result 4: " + d);
+
 	}
 }
